@@ -12,7 +12,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 enter_search_js = """
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
-    const doc = window.parent.document
+    const doc = window.parent.document // break out of the IFrame
     const inputElement = doc.querySelector(".stTextInput input");
 
     inputElement.addEventListener("keypress", function(e) {
