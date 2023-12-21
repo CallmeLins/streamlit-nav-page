@@ -51,3 +51,17 @@ search_engine = st.selectbox("Please select a search engine", ("Google", "Bing",
 
 if st.button("Search"):
     pass  # This space intentionally left blank, as the search is handled by JavaScript
+
+tab1, tab2, tab3= st.tabs(["💊 Most Use", "🗃 Tools", "🎞 Entertainment"])
+
+if tab1:
+    st.write("Links for Most Use:")
+    st.markdown("- [Google](https://www.google.com/)")
+    st.markdown("- [YouTube](https://www.youtube.com/)")
+    st.markdown("- [Amazon](https://www.amazon.com/)")
+
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
