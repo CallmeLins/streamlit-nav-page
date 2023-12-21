@@ -1,5 +1,18 @@
+import base64
 import streamlit as st
+from pathlib import Path
 import streamlit.components.v1 as components
+
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+st.set_page_config(
+     page_title='Sim Nav Page',
+     layout="wide",
+     initial_sidebar_state="expanded",
+)
 
 hide_streamlit_style = """
             <style>
@@ -60,8 +73,14 @@ if tab1:
     st.markdown("- [YouTube](https://www.youtube.com/)")
     st.markdown("- [Amazon](https://www.amazon.com/)")
 
-# Using object notation
-add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
-)
+# st.sidebar.markdown('''[<img src='data:image/png;base64,{}' class='img-fluid' width=32 height=32>](https://streamlit.io/)'''.format(img_to_bytes("logomark_website.png")), unsafe_allow_html=True)
+st.sidebar.header('Streamlit Sim Nav Page')
+
+st.sidebar.markdown('''
+<small>Summary of the [docs](https://docs.streamlit.io/), as of [Streamlit v1.25.0](https://www.streamlit.io/).</small>
+''', unsafe_allow_html=True)
+
+st.sidebar.markdown('__Install and import__')
+
+st.sidebar.markdown('''<hr>''', unsafe_allow_html=True)
+st.sidebar.markdown('''<small>[Simple Nav Page v1.0](https://github.com/CallmeLins/streamlit-nav-page)  | Aug 2023 | [CallmeLins](https://CallmeLins.github.io/)</small>''', unsafe_allow_html=True)
