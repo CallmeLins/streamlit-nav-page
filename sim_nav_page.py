@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 """
-components.html(enter_search_js)
+components.html(enter_search_js, height=0)
 
 st.title("Sim Nav Page")
 
