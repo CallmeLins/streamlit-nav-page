@@ -9,14 +9,18 @@ def img_to_bytes(img_path):
     return encoded
 
 st.set_page_config(
-     page_title='Sim Nav Page',
+     page_title='Nav',
      layout="wide",
      initial_sidebar_state="expanded",
+     page_icon="🧬",
 )
 
 hide_streamlit_style = """
             <style>
             .stDeployButton {visibility: hidden;}
+            [data-testid="element-container"]:nth-child(2) { 
+                display: none !important; 
+            }
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
