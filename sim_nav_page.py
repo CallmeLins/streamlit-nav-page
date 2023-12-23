@@ -69,19 +69,44 @@ search_engine = st.selectbox("Please select a search engine", ("Google", "Bing",
 if st.button("Search"):
     pass  # This space intentionally left blank, as the search is handled by JavaScript
 
-tab1, tab2, tab3= st.tabs(["💊 Most Use", "🗃 Tools", "🎞 Entertainment"])
+tab1, tab2, tab3= st.tabs(["🎞 Entertainment", "💊 Mail", "🗃 Tools"])
 
-if tab1:
-    st.write("Links for Most Use:")
-    st.markdown("- [Google](https://www.google.com/)")
-    st.markdown("- [YouTube](https://www.youtube.com/)")
-    st.markdown("- [Amazon](https://www.amazon.com/)")
+def show_tab1_content():
+    cols = st.columns(8)
+    col_list = list(cols)
+    with col_list[0]:
+        st.write("[Github](https://github.com/)")
+    with col_list[1]:
+        st.write("[Gitee](https://gitee.com/)")
+    with col_list[2]:
+        st.write("[Bilibili](https://www.bilibili.com/)")
+    with col_list[3]:
+        st.write("[Cnblogs](https://www.cnblogs.com/)")
+
+def show_tab2_content():
+    cols = st.columns(8)
+    col_list = list(cols)
+    with col_list[0]:
+        st.write("[126 Mail](https://mail.126.com/)")
+    with col_list[1]:
+        st.write("[163 Mail](https://mail.163.com/)")
+    with col_list[2]:
+        st.write("[Gmail](https://mail.google.com/)")
+    with col_list[3]:
+        st.write("[Outlook](https://outlook.live.com/mail/)")
+
+with tab1:
+    show_tab1_content()
+
+with tab2:
+    show_tab2_content()
+
 
 st.sidebar.markdown('''[<img src='data:image/png;base64,{}' class='img-fluid' width=100 height=65>](https://streamlit.io/)'''.format(img_to_bytes("nav-celue.png")), unsafe_allow_html=True)
 st.sidebar.header('Streamlit Sim Nav Page')
 
 st.sidebar.markdown('''
-<small>Summary of the [docs](https://docs.streamlit.io/), as of [Streamlit v1.25.0](https://www.streamlit.io/).</small>
+<small>Summary of the [docs](https://docs.streamlit.io/), as of [Streamlit v1.29.0](https://www.streamlit.io/).</small>
 ''', unsafe_allow_html=True)
 
 st.sidebar.markdown('__About__')
