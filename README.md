@@ -1,13 +1,13 @@
 # streamlit-nav-page
 A simple streamlit navigation page 
 
-## config streamlit config file
+## config streamlit
 
 Ref: [streamlit Configuration](https://docs.streamlit.io/library/advanced-features/configuration)
 
 In this project I config it in the project root path as local config (.streamlit/config.toml)
 
-## config ngnix config
+## config ngnix
 
 Ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
 
