@@ -3,15 +3,15 @@ A simple streamlit navigation page
 
 ## config streamlit config file
 
-ref: [streamlit Configuration](https://docs.streamlit.io/library/advanced-features/configuration)
+Ref: [streamlit Configuration](https://docs.streamlit.io/library/advanced-features/configuration)
 
-in this project I config it in the project root path as local config (.streamlit/config.toml)
+In this project I config it in the project root path as local config (.streamlit/config.toml)
 
 ## config ngnix config
 
-ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
+Ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
 
-notice: 
+Notice: 
 1. "dashboard" is config in streamlit config file
 2. "_stcore" is config for streamlit endpoint, otherwise, whenyou visit your page, it will keep in "Please wait" 
 
@@ -75,4 +75,4 @@ server {
 
 ## visit it
 
-you can visit it use url "example.com/dashboard"
+You can visit it use url "example.com/dashboard"
