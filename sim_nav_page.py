@@ -71,7 +71,7 @@ if st.button("Search"):
 
 tab1, tab2, tab3= st.tabs(["🎞 Entertainment", "💊 Mail", "🗃 Tools"])
 
-def show_tab1_content():
+with tab1:
     cols = st.columns(8)
     col_list = list(cols)
     with col_list[0]:
@@ -83,7 +83,7 @@ def show_tab1_content():
     with col_list[3]:
         st.write("[Cnblogs](https://www.cnblogs.com/)")
 
-def show_tab2_content():
+with tab2:
     cols = st.columns(8)
     col_list = list(cols)
     with col_list[0]:
@@ -94,13 +94,6 @@ def show_tab2_content():
         st.write("[Gmail](https://mail.google.com/)")
     with col_list[3]:
         st.write("[Outlook](https://outlook.live.com/mail/)")
-
-with tab1:
-    show_tab1_content()
-
-with tab2:
-    show_tab2_content()
-
 
 st.sidebar.markdown('''[<img src='data:image/png;base64,{}' class='img-fluid' width=100 height=65>](https://streamlit.io/)'''.format(img_to_bytes("nav-celue.png")), unsafe_allow_html=True)
 st.sidebar.header('Streamlit Sim Nav Page')
