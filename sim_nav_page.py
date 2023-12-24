@@ -69,7 +69,7 @@ search_engine = st.selectbox("Please select a search engine", ("Google", "Bing",
 if st.button("Search"):
     pass  # This space intentionally left blank, as the search is handled by JavaScript
 
-tab1, tab2, tab3= st.tabs(["🎞 Entertainment", "💊 Mail", "🗃 Tools"])
+tab1, tab2= st.tabs(["🎞 Entertainment", "💊 Mail"])
 
 with tab1:
     cols = st.columns(8)
