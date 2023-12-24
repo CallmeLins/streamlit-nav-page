@@ -9,9 +9,11 @@ in this project I config it in the project root path as local config (.streamlit
 
 ## config ngnix config
 
+ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
+
 notice: 
     1. "dashboard" is config in streamlit config file
-    2. "_stcore" is config for streamlit endpoint, otherwise, whenyou visit your page, it will keep in "Please wait" ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
+    2. "_stcore" is config for streamlit endpoint, otherwise, whenyou visit your page, it will keep in "Please wait" 
 
 ```bash
 server {
