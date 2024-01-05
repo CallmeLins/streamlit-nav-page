@@ -1,5 +1,5 @@
-# streamlit-page
-A simple page created by streamlit, include navigation gpt-assistant
+# streamlit-nav-page
+some page created by streamlit, include navigation gpt-assistant
 
 ## config streamlit
 
