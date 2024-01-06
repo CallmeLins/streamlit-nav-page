@@ -1,6 +1,6 @@
 import streamlit as st
 from navpage.sim_nav_page import nav
-
+from gptpage.gpt_page import chatgpt
 
 
 st.set_page_config(
@@ -13,9 +13,7 @@ st.set_page_config(
 
 page_names_to_funcs = {
     "Navgation": nav,
-    # "Plotting Demo": plotting_demo,
-    # "Mapping Demo": mapping_demo,
-    # "DataFrame Demo": data_frame_demo
+    "ChatGPT": chatgpt,
 }
 
 demo_name = st.sidebar.selectbox("Choose a page", page_names_to_funcs.keys())
