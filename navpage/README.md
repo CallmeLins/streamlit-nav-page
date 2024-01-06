@@ -1,4 +1,4 @@
-# Navigation page
+# Navigation-Page
 A navigation page built with Streamlit, simple and user-friendly.
 
 To bind the Enter key with the search button using JavaScript 

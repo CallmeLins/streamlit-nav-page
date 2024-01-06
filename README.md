@@ -1,13 +1,20 @@
-# streamlit-nav-page
-some page created by streamlit, include navigation gpt-assistant
+# Streamlit-Nav-Page
+- [Navgation Page](https://github.com/CallmeLins/streamlit-nav-page/blob/main/navpage/README.md): a simple navigation page 
+- [ChatGPT Page](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gptpage/README.md): chat-gpt assistant page 
 
-## config streamlit
+# How to deploy
+
+## Install requirement
+- Install python>3.9 in server
+- Install reqirement `pip install streamlit pandas openai requests`
+
+## Config streamlit
 
 Ref: [streamlit Configuration](https://docs.streamlit.io/library/advanced-features/configuration)
 
 In this project I config it in the project root path as local config (.streamlit/config.toml)
 
-## config ngnix
+## Config ngnix
 
 Ref: [How to use Streamlit with Nginx?](https://discuss.streamlit.io/t/how-to-use-streamlit-with-nginx/378/31?page=2)
 

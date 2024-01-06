@@ -1,17 +1,13 @@
-# 🤖 ChatGPT-Assistant
-基于Streamlit搭建的ChatGPT对话助手，简单易用，不易断连，支持以下功能：
-- 多聊天窗口
-- 历史对话留存
-- 预设聊天上下文 
-- 模型参数调节
-- 对话导出为Markdown文件
-- ChatGPT语音交流（推荐电脑端Edge浏览器 
+# ChatGPT-Assistant
+Based on streamlit, support below function
+- Multi chat box
+- Keep chat records
+- Preset chat context
+- Model parameter adjustment
+- Export conversation as a Markdown file
+- ChatGPT voice communication
 
-### 使用技巧：
-- 双击页面可直接定位输入栏
-- Ctrl + Enter 可快捷提交问题
-
-# 部署
+# Setting
 
 ## Streamlit Cloud部署（推荐）
 轻松免费部署，且无须科学上网即可使用，注意设置为私人应用。   

@@ -132,14 +132,14 @@ def chatgpt():
         )
         if create_chat_button:
             create_chat_fun()
-            st.experimental_rerun()
+            st.rerun
 
         delete_chat_button = c2.button(
             "删除", use_container_width=True, key="delete_chat_button"
         )
         if delete_chat_button:
             delete_chat_fun()
-            st.experimental_rerun()
+            st.rerun
 
     with st.sidebar:
         if ("set_chat_name" in st.session_state) and st.session_state[
@@ -147,7 +147,7 @@ def chatgpt():
         ] != "":
             reset_chat_name_fun(st.session_state["set_chat_name"])
             st.session_state["set_chat_name"] = ""
-            st.experimental_rerun()
+            st.rerun
 
         st.write("\n")
         st.write("\n")
@@ -214,7 +214,7 @@ def chatgpt():
                     "records"
                 )
                 write_data()
-                st.experimental_rerun()
+                st.rerun
 
 
     def callback_fun(arg):
@@ -443,7 +443,7 @@ def chatgpt():
         if submitted:
             st.session_state["user_input_content"] = user_input
             st.session_state["user_voice_value"] = ""
-            st.experimental_rerun()
+            st.rerun
 
         if (
             "open_voice_toolkit_value" not in st.session_state
@@ -459,7 +459,7 @@ def chatgpt():
                 st.session_state["user_voice_value"] = vocie_result["voice_result"]["value"]
                 if vocie_result["voice_result"]["flag"] == "final":
                     st.session_state["voice_flag"] = "final"
-                    st.experimental_rerun()
+                    st.rerun
 
 
     def get_model_input():
@@ -532,7 +532,7 @@ def chatgpt():
             else:
                 st.session_state["chat_of_r"] = current_chat
                 st.session_state["r"] = r
-                st.experimental_rerun()
+                st.rerun
 
     if ("r" in st.session_state) and (current_chat == st.session_state["chat_of_r"]):
         if current_chat + "report" not in st.session_state:
@@ -574,7 +574,7 @@ def chatgpt():
             st.session_state.pop(current_chat + "report")
         if "r" in st.session_state:
             st.session_state.pop("r")
-            st.experimental_rerun()
+            st.rerun
 
     # 添加事件监听
     v1.html(js_code, height=0)
