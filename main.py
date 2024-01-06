@@ -1,6 +1,6 @@
 import streamlit as st
-from navpage.sim_nav_page import nav
-from gptpage.gpt_page import chatgpt
+from nav_page.sim_nav_page import nav
+from gpt_page.gpt_page import chatgpt
 
 
 st.set_page_config(

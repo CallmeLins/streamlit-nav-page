@@ -89,7 +89,7 @@ def nav():
         with col_list[3]:
             st.write("[Outlook](https://outlook.live.com/mail/)")
     
-    st.sidebar.markdown('''[<img src='data:image/png;base64,{}' class='img-fluid' width=100 height=65>](https://streamlit.io/)'''.format(img_to_bytes("./navpage/nav-celue.png")), unsafe_allow_html=True)
+    st.sidebar.markdown('''[<img src='data:image/png;base64,{}' class='img-fluid' width=100 height=65>](https://streamlit.io/)'''.format(img_to_bytes("./nav_page/nav_celue.png")), unsafe_allow_html=True)
     st.sidebar.markdown('## Sim Nav Page')
 
     st.sidebar.markdown('''

@@ -1,4 +1,4 @@
-from gptpage.libs.setcontext import set_context
+from gpt_page.libs.setcontext import set_context
 
 # 用户名
 user_name = 'User'

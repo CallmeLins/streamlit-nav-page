@@ -1,4 +1,4 @@
-from gptpage.libs.helper import *
+from gpt_page.libs.helper import *
 
 def chatgpt():
     import os.path
@@ -8,7 +8,7 @@ def chatgpt():
     import openai
     from requests.models import ChunkedEncodingError
     from streamlit.components import v1
-    from gptpage.libs.voicetoolkit import voice_toolkit
+    from gpt_page.libs.voice_toolkit import voice_toolkit
 
     if "apibase" in st.secrets:
         openai.api_base = st.secrets["apibase"]
@@ -16,14 +16,14 @@ def chatgpt():
         openai.api_base = "https://api.openai.com/v1"
 
     # st.set_page_config(page_title="ChatGPT Assistant", layout="wide", page_icon="🤖")
-    # 自定义元素样式
+    # custom css style
     st.markdown(css_code, unsafe_allow_html=True)
 
     if "initial_settings" not in st.session_state:
-        # 历史聊天窗口
+        # historical chat
         st.session_state["path"] = "history_chats_file"
         st.session_state["history_chats"] = get_history_chats(st.session_state["path"])
-        # ss参数初始化
+        # ss para init
         st.session_state["delete_dict"] = {}
         st.session_state["delete_count"] = 0
         st.session_state["voice_flag"] = ""
@@ -31,34 +31,34 @@ def chatgpt():
         st.session_state["error_info"] = ""
         st.session_state["current_chat_index"] = 0
         st.session_state["user_input_content"] = ""
-        # 读取全局设置
+        # read global setting
         if os.path.exists("./set.json"):
             with open("./set.json", "r", encoding="utf-8") as f:
                 data_set = json.load(f)
             for key, value in data_set.items():
                 st.session_state[key] = value
-        # 设置完成
+        # init finish
         st.session_state["initial_settings"] = True
 
     with st.sidebar:
-        st.markdown("# 🤖 聊天窗口")
-        # 创建容器的目的是配合自定义组件的监听操作
+        st.markdown("__Chat Box__")
+        # purpose of creating a container is to cooperate with the listening operation of custom components
         chat_container = st.container()
         with chat_container:
             current_chat = st.radio(
-                label="历史聊天窗口",
+                label="History chat",
                 format_func=lambda x: x.split("_")[0] if "_" in x else x,
                 options=st.session_state["history_chats"],
                 label_visibility="collapsed",
                 index=st.session_state["current_chat_index"],
                 key="current_chat"
                 + st.session_state["history_chats"][st.session_state["current_chat_index"]],
-                # on_change=current_chat_callback  # 此处不适合用回调，无法识别到窗口增减的变动
+                # on_change=current_chat_callback  # not suite for callback, can't recognize cwindows change
             )
         st.write("---")
 
 
-    # 数据写入文件
+    # write data to file
     def write_data(new_chat_name=current_chat):
         if "apikey" in st.secrets:
             st.session_state["paras"] = {
@@ -87,9 +87,9 @@ def chatgpt():
         current_chat_index = st.session_state["history_chats"].index(current_chat)
         st.session_state["history_chats"][current_chat_index] = new_name
         st.session_state["current_chat_index"] = current_chat_index
-        # 写入新文件
+        # write data
         write_data(new_name)
-        # 转移数据
+        # transfer data
         st.session_state["history" + new_name] = st.session_state["history" + current_chat]
         for item in [
             "context_select",
@@ -128,14 +128,14 @@ def chatgpt():
     with st.sidebar:
         c1, c2 = st.columns(2)
         create_chat_button = c1.button(
-            "新建", use_container_width=True, key="create_chat_button"
+            "Create", use_container_width=True, key="create_chat_button"
         )
         if create_chat_button:
             create_chat_fun()
             st.rerun
 
         delete_chat_button = c2.button(
-            "删除", use_container_width=True, key="delete_chat_button"
+            "Delete", use_container_width=True, key="delete_chat_button"
         )
         if delete_chat_button:
             delete_chat_fun()
@@ -151,15 +151,15 @@ def chatgpt():
 
         st.write("\n")
         st.write("\n")
-        st.text_input("设定窗口名称：", key="set_chat_name", placeholder="点击输入")
+        st.text_input("Set chat name:", key="set_chat_name", placeholder="Click input")
         st.selectbox(
-            "选择模型：", index=0, options=["gpt-3.5-turbo", "gpt-4"], key="select_model"
+            "Select module", index=0, options=["gpt-3.5-turbo", "gpt-4"], key="select_model"
         )
         st.write("\n")
         st.caption(
             """
-        - 双击页面可直接定位输入栏
-        - Ctrl + Enter 可快捷提交问题
+        - Double click page can locate to input box
+        - Ctrl + Enter can quick submit input
         """
         )
         st.markdown(
@@ -169,7 +169,7 @@ def chatgpt():
             unsafe_allow_html=True,
         )
 
-    # 加载数据
+    # load history data
     if "history" + current_chat not in st.session_state:
         for key, value in load_data(st.session_state["path"], current_chat).items():
             if key == "history":
@@ -178,15 +178,15 @@ def chatgpt():
                 for k, v in value.items():
                     st.session_state[k + current_chat + "value"] = v
 
-    # 保证不同chat的页面层次一致，否则会导致自定义组件重新渲染
+    # keep different chat in same layer, avoid rendering again
     container_show_messages = st.container()
     container_show_messages.write("")
-    # 对话展示
+    # show chat
     with container_show_messages:
         if st.session_state["history" + current_chat]:
             show_messages(current_chat, st.session_state["history" + current_chat])
 
-    # 核查是否有对话需要删除
+    # monitor is it need del chat
     if any(st.session_state["delete_dict"].values()):
         for key, value in st.session_state["delete_dict"].items():
             try:
@@ -218,7 +218,7 @@ def chatgpt():
 
 
     def callback_fun(arg):
-        # 连续快速点击新建与删除会触发错误回调，增加判断
+        # quick click create and delete button will call error callback, add judjement in here
         if ("history" + current_chat in st.session_state) and (
             "frequency_penalty" + current_chat in st.session_state
         ):
@@ -258,19 +258,19 @@ def chatgpt():
                 )
 
 
-    # 输入内容展示
+    # show input content
     area_user_svg = st.empty()
     area_user_content = st.empty()
-    # 回复展示
+    # show replay
     area_gpt_svg = st.empty()
     area_gpt_content = st.empty()
-    # 报错展示
+    # show error info
     area_error = st.empty()
 
     st.write("\n")
     st.header("ChatGPT Assistant")
     tap_input, tap_context, tap_model, tab_func = st.tabs(
-        ["💬 聊天", "🗒️ 预设", "⚙️ 模型", "🛠️ 功能"]
+        ["💬 Chat", "🗒️ Prompt", "⚙️ Module", "🛠️ Function"]
     )
 
     with tap_context:
@@ -279,7 +279,7 @@ def chatgpt():
             st.session_state["context_select" + current_chat + "value"]
         )
         st.selectbox(
-            label="选择上下文",
+            label="Select context",
             options=set_context_list,
             key="context_select" + current_chat,
             index=context_select_index,
@@ -289,7 +289,7 @@ def chatgpt():
         st.caption(set_context_all[st.session_state["context_select" + current_chat]])
 
         st.text_area(
-            label="补充或自定义上下文：",
+            label="Add or define context",
             key="context_input" + current_chat,
             value=st.session_state["context_input" + current_chat + "value"],
             on_change=callback_fun,
@@ -297,9 +297,9 @@ def chatgpt():
         )
 
     with tap_model:
-        st.markdown("OpenAI API Key (可选)")
+        st.markdown("OpenAI API Key (option)")
         st.text_input(
-            "OpenAI API Key (可选)",
+            "OpenAI API Key (option)",
             type="password",
             key="apikey_input",
             label_visibility="collapsed",

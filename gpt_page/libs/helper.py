@@ -7,7 +7,7 @@ import pandas as pd
 from .custom import *
 import copy
 import io
-from gptpage.libs.texttoolkit import text_toolkit
+from gpt_page.libs.text_toolkit import text_toolkit
 
 
 def get_history_chats(path: str) -> list:

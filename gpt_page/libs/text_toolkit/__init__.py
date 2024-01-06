@@ -1,7 +1,7 @@
 import streamlit.components.v1 as components
 text_toolkit = components.declare_component(
     "text_toolkit",
-    path="gptpage/libs/texttoolkit"
+    path="gpt_page/libs/text_toolkit"
 )
 
 

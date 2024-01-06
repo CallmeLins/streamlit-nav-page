@@ -80,6 +80,6 @@ server {
 }
 ```
 
-## visit it
+## Visit it
 
 You can visit it use url "example.com/dashboard"
