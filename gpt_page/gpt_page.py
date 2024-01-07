@@ -305,10 +305,10 @@ def chatgpt():
             label_visibility="collapsed",
         )
         st.caption(
-            "此Key仅在当前网页有效，且优先级高于Secrets中的配置，仅自己可用，他人无法共享。[官网获取](https://platform.openai.com/account/api-keys)"
+            "This key is only valid on the current webpage, its prority higher than in config file. [Get from offical](https://platform.openai.com/account/api-keys)"
         )
 
-        st.markdown("包含对话次数：")
+        st.markdown("Including conversations count:")
         st.slider(
             "Context Level",
             0,
@@ -318,18 +318,18 @@ def chatgpt():
             on_change=callback_fun,
             key="context_level" + current_chat,
             args=("context_level",),
-            help="表示每次会话中包含的历史对话次数，预设内容不计算在内。",
+            help="The number of historical conversations included in each conversation, excluding preset content.",
         )
 
-        st.markdown("模型参数：")
+        st.markdown("Module parameter:")
         st.slider(
             "Temperature",
             0.0,
             2.0,
             st.session_state["temperature" + current_chat + "value"],
             0.1,
-            help="""在0和2之间，应该使用什么样的采样温度？较高的值（如0.8）会使输出更随机，而较低的值（如0.2）则会使其更加集中和确定性。
-            我们一般建议只更改这个参数或top_p参数中的一个，而不要同时更改两个。""",
+            help="""Higher value (0.8) will make output more random, lower value (0.2) will make more concentrated and deterministic
+            Recommend changing only one between this parameter and top_p para, Do not change both of the p parameters at the same time.""",
             on_change=callback_fun,
             key="temperature" + current_chat,
             args=("temperature",),
@@ -340,8 +340,10 @@ def chatgpt():
             1.0,
             st.session_state["top_p" + current_chat + "value"],
             0.1,
-            help="""一种替代采用温度进行采样的方法，称为“基于核心概率”的采样。在该方法中，模型会考虑概率最高的top_p个标记的预测结果。
-            因此，当该参数为0.1时，只有包括前10%概率质量的标记将被考虑。我们一般建议只更改这个参数或采样温度参数中的一个，而不要同时更改两个。""",
+            help="""A method that replaces temperature sampling is called "core probability based sampling". 
+            In this method, the model considers the predicted result with the highest probability for top_p markers.
+            Therefore, when the parameter is 0.1, only markers including the top 10% probability mass will be considered.
+            Recommend changing only one between this parameter and top_p para, Do not change both of the p parameters at the same time.""",
             on_change=callback_fun,
             key="top_p" + current_chat,
             args=("top_p",),
@@ -352,7 +354,7 @@ def chatgpt():
             2.0,
             st.session_state["presence_penalty" + current_chat + "value"],
             0.1,
-            help="""该参数的取值范围为-2.0到2.0。正值会根据新标记是否出现在当前生成的文本中对其进行惩罚，从而增加模型谈论新话题的可能性。""",
+            help="""Positive values will penalize new tags based on whether they appear in the currently generated text, thereby increasing the likelihood of the model discussing new topics.""",
             on_change=callback_fun,
             key="presence_penalty" + current_chat,
             args=("presence_penalty",),
@@ -363,22 +365,22 @@ def chatgpt():
             2.0,
             st.session_state["frequency_penalty" + current_chat + "value"],
             0.1,
-            help="""该参数的取值范围为-2.0到2.0。正值会根据新标记在当前生成的文本中的已有频率对其进行惩罚，从而减少模型直接重复相同语句的可能性。""",
+            help="""Positive values will penalize new tags based on whether they appear in the currently generated text, thereby decreasing the model generate same topics.""",
             on_change=callback_fun,
             key="frequency_penalty" + current_chat,
             args=("frequency_penalty",),
         )
         st.caption(
-            "[官网参数说明](https://platform.openai.com/docs/api-reference/completions/create)"
+            "[Offical para induction](https://platform.openai.com/docs/api-reference/completions/create)"
         )
 
     with tab_func:
         c1, c2, c3 = st.columns(3)
         with c1:
-            st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
+            st.button("Clear chat history", use_container_width=True, on_click=clear_button_callback)
         with c2:
             btn = st.download_button(
-                label="导出聊天记录",
+                label="Export chat records",
                 data=download_history(st.session_state["history" + current_chat]),
                 file_name=f'{current_chat.split("_")[0]}.md',
                 mime="text/markdown",
@@ -386,11 +388,11 @@ def chatgpt():
             )
         with c3:
             st.button(
-                "删除所有窗口", use_container_width=True, on_click=delete_all_chat_button_callback
+                "Delete all chat", use_container_width=True, on_click=delete_all_chat_button_callback
             )
 
         st.write("\n")
-        st.markdown("自定义功能：")
+        st.markdown("Custom function:")
         c1, c2 = st.columns(2)
         with c1:
             if "open_text_toolkit_value" in st.session_state:
@@ -398,7 +400,7 @@ def chatgpt():
             else:
                 default = True
             st.checkbox(
-                "开启文本下的功能组件",
+                "Enable text toolkit",
                 value=default,
                 key="open_text_toolkit",
                 on_change=save_set,
@@ -410,7 +412,7 @@ def chatgpt():
             else:
                 default = True
             st.checkbox(
-                "开启语音输入组件",
+                "Enable voice toolkit",
                 value=default,
                 key="open_voice_toolkit",
                 on_change=save_set,
@@ -421,7 +423,7 @@ def chatgpt():
 
         def input_callback():
             if st.session_state["user_input_area"] != "":
-                # 修改窗口名称
+                # rename chat name
                 user_input_content = st.session_state["user_input_area"]
                 df_history = pd.DataFrame(st.session_state["history" + current_chat])
                 if df_history.empty or len(df_history.query('role!="system"')) == 0:
@@ -430,15 +432,15 @@ def chatgpt():
 
         with st.form("input_form", clear_on_submit=True):
             user_input = st.text_area(
-                "**输入：**",
+                "**Input:**",
                 key="user_input_area",
-                help="内容将以Markdown格式在页面展示，建议遵循相关语言规范，同样有利于GPT正确读取，例如："
-                "\n- 代码块写在三个反引号内，并标注语言类型"
-                "\n- 以英文冒号开头的内容或者正则表达式等写在单反引号内",
+                help="Content format as below can help GPT identification:"
+                "\n- Code block use three backquotes and annotate the language type"
+                "\n- Special character or regular expressions use quotation marks",
                 value=st.session_state["user_voice_value"],
             )
             submitted = st.form_submit_button(
-                "确认提交", use_container_width=True, on_click=input_callback
+                "Confirm submit", use_container_width=True, on_click=input_callback
             )
         if submitted:
             st.session_state["user_input_content"] = user_input
@@ -449,9 +451,9 @@ def chatgpt():
             "open_voice_toolkit_value" not in st.session_state
             or st.session_state["open_voice_toolkit_value"]
         ):
-            # 语音输入功能
+            # voice input toolkit
             vocie_result = voice_toolkit()
-            # vocie_result会保存最后一次结果
+            # vocie_result will save latest result
             if (
                 vocie_result and vocie_result["voice_result"]["flag"] == "interim"
             ) or st.session_state["voice_flag"] == "interim":
@@ -463,7 +465,7 @@ def chatgpt():
 
 
     def get_model_input():
-        # 需输入的历史记录
+        # History to be inputted
         context_level = st.session_state["context_level" + current_chat]
         history = get_history_input(
             st.session_state["history" + current_chat], context_level
@@ -474,7 +476,7 @@ def chatgpt():
         ]:
             if ctx != "":
                 history = [{"role": "system", "content": ctx}] + history
-        # 设定的模型参数
+        # module para to be set
         paras = {
             "temperature": st.session_state["temperature" + current_chat],
             "top_p": st.session_state["top_p" + current_chat],
@@ -490,24 +492,24 @@ def chatgpt():
             st.session_state[current_chat + "report"] = ""
         st.session_state["pre_user_input_content"] = st.session_state["user_input_content"]
         st.session_state["user_input_content"] = ""
-        # 临时展示
+        # temporary display
         show_each_message(
             st.session_state["pre_user_input_content"],
             "user",
             "tem",
             [area_user_svg.markdown, area_user_content.markdown],
         )
-        # 模型输入
+        # module input
         history_need_input, paras_need_input = get_model_input()
-        # 调用接口
+        # call Interface
         with st.spinner("🤔"):
             try:
                 if apikey := st.session_state["apikey_input"]:
                     openai.api_key = apikey
-                # 配置临时apikey，此时不会留存聊天记录，适合公开使用
+                # configure temporary apikey, which will not retain chat records and is suitable for public use
                 elif "apikey_tem" in st.secrets:
                     openai.api_key = st.secrets["apikey_tem"]
-                # 注：当st.secrets中配置apikey后将会留存聊天记录，即使未使用此apikey
+                # note: When apikey is configured in st.secrets, chat records will be retained even if this apikey is not used
                 else:
                     openai.api_key = st.secrets["apikey"]
                 r = openai.ChatCompletion.create(
@@ -518,17 +520,17 @@ def chatgpt():
                 )
             except (FileNotFoundError, KeyError):
                 area_error.error(
-                    "缺失 OpenAI API Key，请在复制项目后配置Secrets，或者在模型选项中进行临时配置。"
-                    "详情见[项目仓库](https://github.com/PierXuY/ChatGPT-Assistant)。"
+                    "Missing OpenAI API Key, please config Secrets, or conifg it in web page."
+                    "Detail[Repo](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/README.md)。"
                 )
             except openai.error.AuthenticationError:
-                area_error.error("无效的 OpenAI API Key。")
+                area_error.error("Invalid OpenAI API Key.")
             except openai.error.APIConnectionError as e:
-                area_error.error("连接超时，请重试。报错：   \n" + str(e.args[0]))
+                area_error.error("Connect timeout, please try again. errot msg: \n" + str(e.args[0]))
             except openai.error.InvalidRequestError as e:
-                area_error.error("无效的请求，请重试。报错：   \n" + str(e.args[0]))
+                area_error.error("Invalid request, please try again. errot msg: \n" + str(e.args[0]))
             except openai.error.RateLimitError as e:
-                area_error.error("请求受限。报错：   \n" + str(e.args[0]))
+                area_error.error("RateLimit, errot msg: \n" + str(e.args[0]))
             else:
                 st.session_state["chat_of_r"] = current_chat
                 st.session_state["r"] = r
@@ -556,12 +558,12 @@ def chatgpt():
                         [area_gpt_svg.markdown, area_gpt_content.markdown],
                     )
         except ChunkedEncodingError:
-            area_error.error("网络状况不佳，请刷新页面重试。")
-        # 应对stop情形
+            area_error.error("Network poor, please refresh the page and try again.")
+        # for situtation sop 
         except Exception:
             pass
         else:
-            # 保存内容
+            # save content
             st.session_state["history" + current_chat].append(
                 {"role": "user", "content": st.session_state["pre_user_input_content"]}
             )
@@ -569,12 +571,12 @@ def chatgpt():
                 {"role": "assistant", "content": st.session_state[current_chat + "report"]}
             )
             write_data()
-        # 用户在网页点击stop时，ss某些情形下会暂时为空
+        # when a user clicks stop on a webpage, ss may temporarily be empty in some cases
         if current_chat + "report" in st.session_state:
             st.session_state.pop(current_chat + "report")
         if "r" in st.session_state:
             st.session_state.pop("r")
             st.rerun
 
-    # 添加事件监听
+    # add event monitor
     v1.html(js_code, height=0)
