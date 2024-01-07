@@ -36,7 +36,7 @@ def remove_data(path: str, chat_name: str):
         os.remove(f"./{path}/{chat_name}.json")
     except FileNotFoundError:
         pass
-    # 清除缓存
+    # clear cache
     try:
         st.session_state.pop('history' + chat_name)
         for item in ["context_select", "context_input", "context_level", *initial_content_all['paras']]:
@@ -74,7 +74,7 @@ def show_each_message(message: str, role: str, idr: str, area=None):
         data_idr = idr + "_assistant"
         class_name = 'assistant'
     message = url_correction(message)
-    area[0](f"\n<div class='avatar'>{icon}<h2>{name}：</h2></div>", unsafe_allow_html=True)
+    area[0](f"\n<div class='avatar'>{icon}<h2>{name}:</h2></div>", unsafe_allow_html=True)
     area[1](
         f"""<div class='content-div {class_name}' data-idr='{data_idr}' style='background-color: {background_color};'>\n\n{message}""",
         unsafe_allow_html=True)
@@ -101,7 +101,7 @@ def show_messages(current_chat: str, messages: list):
             st.write("---")
 
 
-# 根据context_level提取history
+# extract history based context_level
 def get_history_input(history: list, level: int) -> list:
     if level != 0 and history:
         df_input = pd.DataFrame(history).query('role!="system"')
@@ -112,18 +112,18 @@ def get_history_input(history: list, level: int) -> list:
     return res
 
 
-# 去除#号右边的空格
+# remove the space to the right of the #
 # def remove_hashtag_right__space(text: str) -> str:
 #     text = re.sub(r"(#+)\s*", r"\1", text)
 #     return text
 
 
-# 提取文本
+# extract text
 def extract_chars(text: str, num: int) -> str:
     char_num = 0
     chars = ''
     for char in text:
-        # 汉字算两个字符
+        # chn character is two characters
         if '\u4e00' <= char <= '\u9fff':
             char_num += 2
         else:
@@ -139,9 +139,9 @@ def download_history(history: list):
     md_text = ""
     for msg in history:
         if msg['role'] == 'user':
-            md_text += f'## {user_name}：\n{msg["content"]}\n'
+            md_text += f'## {user_name}:\n{msg["content"]}\n'
         elif msg['role'] == 'assistant':
-            md_text += f'## {gpt_name}：\n{msg["content"]}\n'
+            md_text += f'## {gpt_name}:\n{msg["content"]}\n'
     output = io.BytesIO()
     output.write(md_text.encode('utf-8'))
     output.seek(0)
@@ -159,7 +159,7 @@ def url_correction(text: str) -> str:
     text = re.sub(pattern, r' \g<1> ', text)
     return text
 
-# st的markdown会错误渲染英文引号加英文字符，例如 :abc
+# markdown of st will render error like (:abc)
 # def colon_correction(text):
 #     pattern = r':[a-zA-Z]'
 #     if re.search(pattern, text):

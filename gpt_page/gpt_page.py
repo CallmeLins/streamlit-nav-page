@@ -149,25 +149,17 @@ def chatgpt():
             st.session_state["set_chat_name"] = ""
             st.rerun
 
-        st.write("\n")
-        st.write("\n")
         st.text_input("Set chat name:", key="set_chat_name", placeholder="Click input")
         st.selectbox(
             "Select module", index=0, options=["gpt-3.5-turbo", "gpt-4"], key="select_model"
         )
-        st.write("\n")
         st.caption(
             """
         - Double click page can locate to input box
         - Ctrl + Enter can quick submit input
         """
         )
-        st.markdown(
-            '<a href="https://github.com/PierXuY/ChatGPT-Assistant" target="_blank" rel="ChatGPT-Assistant">'
-            '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=ChatGPT Assistant" alt="GitHub">'
-            "</a>",
-            unsafe_allow_html=True,
-        )
+        st.sidebar.markdown('''<small>[Simple Nav Page v1.0](https://github.com/CallmeLins/streamlit-nav-page)  | Aug 2023 | [CallmeLins](https://CallmeLins.github.io/)</small>''', unsafe_allow_html=True)
 
     # load history data
     if "history" + current_chat not in st.session_state:
@@ -371,7 +363,7 @@ def chatgpt():
             args=("frequency_penalty",),
         )
         st.caption(
-            "[Offical para induction](https://platform.openai.com/docs/api-reference/completions/create)"
+            "[Offical parameter induction](https://platform.openai.com/docs/api-reference/completions/create)"
         )
 
     with tab_func:
@@ -440,7 +432,7 @@ def chatgpt():
                 value=st.session_state["user_voice_value"],
             )
             submitted = st.form_submit_button(
-                "Confirm submit", use_container_width=True, on_click=input_callback
+                "Confirm Submit", use_container_width=True, on_click=input_callback
             )
         if submitted:
             st.session_state["user_input_content"] = user_input
@@ -520,7 +512,7 @@ def chatgpt():
                 )
             except (FileNotFoundError, KeyError):
                 area_error.error(
-                    "Missing OpenAI API Key, please config Secrets, or conifg it in web page."
+                    "Missing OpenAI API Key, please config Secrets, or conifg it in web page. "
                     "Detail[Repo](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/README.md)。"
                 )
             except openai.error.AuthenticationError:
