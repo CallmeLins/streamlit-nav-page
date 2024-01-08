@@ -23,7 +23,7 @@ def nav():
     <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         const doc = window.parent.document // break out of the IFrame
-        const inputElement = doc.querySelector(".stTextInput input");
+        const inputElement = doc.querySelector("input[aria-label='Please input search content']");
 
         inputElement.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {

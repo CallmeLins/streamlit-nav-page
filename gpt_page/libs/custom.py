@@ -132,7 +132,7 @@ function checkElements() {
     const tab_panels = window.parent.document.querySelectorAll('div[data-baseweb="tab-panel"]');
 
     if (textinput && textarea && button && tabs && tabs_div && tab_panels) {
-        // 双击点位输入框，同时抑制双击时选中文本事件
+        // double click position inputbox, and avoid select text
         window.parent.document.addEventListener('dblclick', function (event) {
             let activeTab = tabs_div.querySelector('button[aria-selected="true"]');
             if (activeTab.querySelector('p').textContent === '💬 Chat') {
@@ -168,7 +168,7 @@ function checkElements() {
             textarea.style.borderColor = 'white';
         });
 
-        // Ctrl + Enter快捷方式
+        // Ctrl + Enter Shortcuts
         window.parent.document.addEventListener("keydown", event => {
             if (event.ctrlKey && event.key === "Enter") {
                 if (textinput.textContent !== '') {
@@ -178,24 +178,24 @@ function checkElements() {
             }
         });
 
-        // 设置 Tab 键
+        // set Tab key
         textinput.addEventListener('keydown', function (event) {
             if (event.keyCode === 9) {
-                // 阻止默认行为
+                // Block default behavior
                 event.preventDefault();
                 if (!window.parent.getSelection().toString()) {
-                    // 获取当前光标位置
+                    // Get the current cursor position
                     const start = this.selectionStart;
                     const end = this.selectionEnd;
-                    // 在光标位置插入制表符
+                    // Insert a tab at the cursor position
                     this.value = this.value.substring(0, start) + '\t' + this.value.substring(end);
-                    // 将光标移动到插入的制表符之后
+                    // Move the cursor after the inserted tab
                     this.selectionStart = this.selectionEnd = start + 1;
                 }
             }
         });
 
-        // 处理tabs 在第一次切换时的渲染问题
+        // Dealing with rendering issues with tabs during the first switch
         tabs.forEach(function (tab, index) {
             const tab_panel_child = tab_panels[index].querySelectorAll("*");
 
