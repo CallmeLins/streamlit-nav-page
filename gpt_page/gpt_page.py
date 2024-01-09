@@ -535,22 +535,21 @@ def chatgpt():
             st.session_state[current_chat + "report"] = ""
         try:
             for e in st.session_state["r"]:
-                if "content" in e["choices"][0]["delta"]:
-                    st.session_state[current_chat + "report"] += e["choices"][0]["delta"][
-                        "content"
-                    ]
-                    show_each_message(
-                        st.session_state["pre_user_input_content"],
-                        "user",
-                        "tem",
-                        [area_user_svg.markdown, area_user_content.markdown],
-                    )
-                    show_each_message(
-                        st.session_state[current_chat + "report"],
-                        "assistant",
-                        "tem",
-                        [area_gpt_svg.markdown, area_gpt_content.markdown],
-                    )
+                if not e.choices:
+                    continue
+                st.session_state[current_chat + "report"] += e.choices[0].delta.content
+                show_each_message(
+                    st.session_state["pre_user_input_content"],
+                    "user",
+                    "tem",
+                    [area_user_svg.markdown, area_user_content.markdown],
+                )
+                show_each_message(
+                    st.session_state[current_chat + "report"],
+                    "assistant",
+                    "tem",
+                    [area_gpt_svg.markdown, area_gpt_content.markdown],
+                )
         except ChunkedEncodingError:
             area_error.error("Network poor, please refresh the page and try again.")
         # for situtation sop 
