@@ -46,7 +46,7 @@ css_code = """
     section[data-testid="stSidebar"] h1 {
         text-shadow: 2px 2px #ccc;
         font-size: 28px !important;
-        font-family: "微软雅黑", "auto";
+        font-family: "Microsoft YaHei", "auto";
         margin-bottom: 6px;
         font-weight: 500 !important;
     }
