@@ -53,7 +53,7 @@ def chatgpt():
                 index=st.session_state["current_chat_index"],
                 key="current_chat"
                 + st.session_state["history_chats"][st.session_state["current_chat_index"]],
-                # on_change=current_chat_callback  # not suite for callback, can't recognize cwindows change
+                # on_change=current_chat_callback  # not suite for callback, can't recognize windows change
             )
         st.write("---")
 
@@ -504,7 +504,7 @@ def chatgpt():
                 # note: When apikey is configured in st.secrets, chat records will be retained even if this apikey is not used
                 else:
                     openai.api_key = st.secrets["apikey"]
-                r = openai.ChatCompletion.create(
+                r = openai.chat.completions.create(
                     model=st.session_state["select_model"],
                     messages=history_need_input,
                     stream=True,
@@ -515,14 +515,16 @@ def chatgpt():
                     "Missing OpenAI API Key, please config Secrets, or conifg it in web page. "
                     "Detail[Repo](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/README.md)。"
                 )
-            except openai.error.AuthenticationError:
+            except openai.AuthenticationError as e: # Handle AuthenticationError
                 area_error.error("Invalid OpenAI API Key.")
-            except openai.error.APIConnectionError as e:
-                area_error.error("Connect timeout, please try again. errot msg: \n" + str(e.args[0]))
-            except openai.error.InvalidRequestError as e:
-                area_error.error("Invalid request, please try again. errot msg: \n" + str(e.args[0]))
-            except openai.error.RateLimitError as e:
-                area_error.error("RateLimit, errot msg: \n" + str(e.args[0]))
+            except openai.APIConnectionError as e: # Handle APIConnectionError
+                area_error.error("Connect timeout, please try again. Error message: \n" + str(e)) 
+            except openai.BadRequestError as e: # Handle InvalidRequestError
+                area_error.error("Invalid request, please try again. Error message: \n" + str(e))
+            except openai.RateLimitError as e: # Handle RateLimitError
+                area_error.error("Rate limit exceeded. Error message: \n" + str(e))
+            except openai.OpenAIError as e: # Handle other OpenAI errors
+                area_error.error("An error occurred: \n" + str(e))
             else:
                 st.session_state["chat_of_r"] = current_chat
                 st.session_state["r"] = r

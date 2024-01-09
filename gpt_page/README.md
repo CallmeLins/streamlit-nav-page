@@ -15,7 +15,7 @@ Based on streamlit, support below function
   1. use project [openai-forward](https://github.com/beidongjiedeguang/openai-forward) proxy interface - `apibase = "https://api.openai-forward.com/v1"` 
   2. set up yourself ref: [openai-forward](https://github.com/beidongjiedeguang/openai-forward)
 
-# Custom config
+## Custom config
 - config avatar and user name in [custom.py](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/libs/custom.py)  [(source)](https://www.dicebear.com/playground?style=identicon)。
 - add preset context in [setcontext.py](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/libs/setcontext.py)
 
