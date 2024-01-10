@@ -160,23 +160,26 @@ function checkElements() {
             }
         });
         textinput.addEventListener('focusin', function (event) {
-            event.stopPropagation();
+            // event.stopPropagation();
+            event.preventDefault();
             textarea.style.borderColor = 'rgb(255,75,75)';
         });
         textinput.addEventListener('focusout', function (event) {
-            event.stopPropagation();
+            // event.stopPropagation(); // it will cause submit button event blocked change it to preventDefault()
+            event.preventDefault();
             textarea.style.borderColor = 'white';
         });
 
-        // Ctrl + Enter Shortcuts
-        window.parent.document.addEventListener("keydown", event => {
-            if (event.ctrlKey && event.key === "Enter") {
-                if (textinput.textContent !== '') {
-                    button.click();
-                }
-                textinput.blur();
-            }
-        });
+        // Ctrl + Enter Shortcuts 
+        // new feature in streamlit not need js trigger click
+        // window.parent.document.addEventListener("keydown", event => {
+        //     if (event.ctrlKey && event.key === "Enter") {
+        //         if (textinput.textContent !== '') {
+        //             button.click();
+        //         }
+        //         textinput.blur();
+        //     }
+        // });
 
         // set Tab key
         textinput.addEventListener('keydown', function (event) {
