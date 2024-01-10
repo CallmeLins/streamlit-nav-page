@@ -250,6 +250,8 @@ def chatgpt():
                 )
 
 
+    st.header("ChatGPT Assistant")
+
     # show input content
     area_user_svg = st.empty()
     area_user_content = st.empty()
@@ -258,9 +260,7 @@ def chatgpt():
     area_gpt_content = st.empty()
     # show error info
     area_error = st.empty()
-
-    st.write("\n")
-    st.header("ChatGPT Assistant")
+    
     tap_input, tap_context, tap_model, tab_func = st.tabs(
         ["💬 Chat", "🗒️ Prompt", "⚙️ Module", "🛠️ Function"]
     )
@@ -513,7 +513,7 @@ def chatgpt():
             except (FileNotFoundError, KeyError):
                 area_error.error(
                     "Missing OpenAI API Key, please config Secrets, or conifg it in web page. "
-                    "Detail[Repo](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/README.md)。"
+                    "Detail see [Repo](https://github.com/CallmeLins/streamlit-nav-page/blob/main/gpt_page/README.md)。"
                 )
             except openai.AuthenticationError as e: # Handle AuthenticationError
                 area_error.error("Invalid OpenAI API Key.")
